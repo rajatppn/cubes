@@ -20,7 +20,7 @@ exports.createUser = function(req,res) {
       return;
     }
     result = {};
-    result.id = response[0]._id;
+    result.id = response._id;
     result.name = req.param('name');
     result.city = req.param('city');
     res.json(result);
@@ -50,12 +50,17 @@ exports.shareCube = function(req, res) {
     return;
   }
   var cb = function(response){
+    if(response.error) {
+      res.json(response);
+    }
+    console.log(response);
+    results = {};
     results.id = req.param('parent_user_id');
     results.cube_id = req.param('cube_id');
     results.user_id = req.param('user_id');
     res.json(results);
   }
-  userModel.addCubeToUser(req.params('user_id'), req.param('cube_id'),cb);
+  userModel.addCubeToUser(req.param('user_id'), req.param('cube_id'),cb);
 }
 
 exports.shareContent = function(req, res) {
@@ -84,13 +89,12 @@ exports.shareContent = function(req, res) {
     results.user_id = req.param('user_id');
     res.json(results);
   }
-  userModel.addContentToUser(req.params('user_id'), req.param('content_id'),cb);
+  userModel.addContentToUser(req.param('user_id'), req.param('content_id'),cb);
 }
 
 exports.listCubes = function(req,res) {
   if (undefined == req.param('user_id')) {
     errStr = "Undefined user Id to share with";
-    console.log(errStr);
     res.status(400);
     res.json({error: errStr});
     return;
@@ -119,7 +123,6 @@ exports.listCubes = function(req,res) {
 exports.listContents = function(req,res) {
   if (undefined == req.param('user_id')) {
     errStr = "Undefined user Id to share with";
-    console.log(errStr);
     res.status(400);
     res.json({error: errStr});
     return;
@@ -127,6 +130,10 @@ exports.listContents = function(req,res) {
   var cb = function(response){
     resultCubes = response[0].cubes;
     resultIds = [];
+    console.log(response);
+    response[0].contents.forEach(function(value,index,arr){
+      resultIds.push(value);
+    });
     cubeModel.getCube(resultCubes, function(response) {
       if(response.error) {
         res.json(response);
@@ -138,15 +145,12 @@ exports.listContents = function(req,res) {
         });
       });
     });
-    response[0].contents.forEach(function(value,index,arr){
-      resultIds.push(value);
-    });
-    results = [];
-    contentModel.getContent(resultId, function(response) {
+    contentModel.getContent(resultIds, function(response) {
+      results = [];
       response.forEach(function(value,index,arr) {
         result = {};
         result.id = value._id;
-        result.name = value.name;
+        result.link = value.link;
         result.user_id = req.param('user_id');
         results.push(result);
       });

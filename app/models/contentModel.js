@@ -32,15 +32,12 @@ exports.addContent = function(link, cb) {
 }
 
 exports.getContent = function(contentId, cb) {
-  ContentModel.find({'_id' :{$in: contentId}}, function contentId(err, results) {
+  ContentModel.find({'_id' :{$in: contentId}}, function contentsId(err, results) {
       if (err) {
           cb({error: "Error from contentId check"});
       }
-      if (results.length < 0) {
-        cb({error: 'No content with that id exists.'});
-      } else {
-        cb(results);
-      }
+      console.log(results);
+      cb(results);
   });
 
 }

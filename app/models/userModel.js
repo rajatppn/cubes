@@ -36,10 +36,10 @@ exports.addCubeToUser = function (userId, cubeId, cb) {
       if (err) {
           cb({error: err});
       }
-      if (results.length < 0) {
+      if (results.length <= 0) {
           cb({error: 'No account with that id exists.'});
       } else {
-        UserModel.update({'_id' : results[0]._id}, { $push: { cubes: cubeId}}, { multi: true }, function(err, numAffected) {
+        UserModel.update({'_id': results[0]._id}, { $push: { cubes: cubeId}}, { multi: true }, function(err, numAffected) {
           if(err) {
             cb({error: err});
           } else {
@@ -55,7 +55,7 @@ exports.addContentToUser = function (userId, contentId, cb) {
       if (err) {
           cb({error: err});
       }
-      if (results.length < 0) {
+      if (results.length <= 0) {
           cb({error: 'No account with that id exists.'});
       } else {
         UserModel.update({'_id' : results[0]._id}, { $push: { contents: contentId}}, { multi: true }, function(err, numAffected) {
@@ -74,7 +74,7 @@ exports.deleteCubeFromUser = function(userId, cubeId, cb) {
       if (err) {
           cb({error: err});
       }
-      if (results.length < 0) {
+      if (results.length <= 0) {
           cb({error: 'No account with that id exists.'});
       } else {
         UserModel.update({'_id' : results[0]._id}, { $pull: { cubes: cubeId}}, { multi: true }, function(err, numAffected) {
@@ -93,7 +93,7 @@ exports.getUser = function(userId, cb) {
       if (err) {
         cb({error: "Error from userId check"});
       }
-      if (results.length < 0) {
+      if (results.length <= 0) {
         cb({error: 'No account with that id exists.'});
       } else {
         cb(results);

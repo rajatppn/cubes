@@ -1,3 +1,3 @@
 module.exports = {
-     url : 'mongodb://localhost/reader_test'
+     url : 'mongodb://cubeit:cubeit@ds023550.mlab.com:23550/rajatppn'
  }

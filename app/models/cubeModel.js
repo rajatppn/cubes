@@ -43,11 +43,11 @@ exports.addContentToCube = function (contentId, cubeId, cb) {
   CubeModel.find({'_id' : cubeId}, function cubeId(err, results) {
       if (err) {
           cb({error: err});
+          return;
       }
-      if (results.length < 0) {
+      if (results.length <= 0) {
           cb({error: 'No cube with that id exists.'});
       } else {
-        var mongoose =require('mongoose');
         CubeModel.update({'_id' : results[0]._id}, { $push: { contents: contentId}}, { multi: true }, function(err, numAffected) {
           if(err) {
             cb({error: err});
@@ -63,9 +63,11 @@ exports.deleteContentFromCube = function (contentId, cubeId, cb) {
   CubeModel.find({'_id' : cubeId}, function cubeId(err, results) {
       if (err) {
           cb({error: err});
+          return;
       }
-      if (results.length < 0) {
+      if (results.length <= 0) {
           cb({error: 'No cube with that id exists.'});
+          return;
       } else {
         CubeModel.update({'_id' : results[0]._id}, { $pull: { contents: contentId}}, { multi: true }, function(err, numAffected) {
           if(err) {
@@ -82,9 +84,11 @@ exports.deleteCube = function (cubeId, cb) {
   CubeModel.find({'_id' : cubeId}, function cubeId(err, results) {
       if (err) {
           cb({error: err});
+          return;
       }
-      if (results.length < 0) {
+      if (results.length <= 0) {
           cb({error: 'No cube with that id exists.'});
+          return;
       } else {
         CubeModel.remove({'_id' : results[0]._id}, function(err, results) {
           if(err) {
@@ -98,11 +102,12 @@ exports.deleteCube = function (cubeId, cb) {
 }
 
 exports.getCube = function(cubeId, cb) {
-  CubeModel.find({'_id' :{$in: cubeId}}, function cubeId(err, results) {
+  CubeModel.find({'_id' :{$in: cubeId}}, function (err, results) {
       if (err) {
           cb({error: err});
+          return;
       }
-      if (results.length < 0) {
+      if (results.length <= 0) {
          cb({error: 'No cube with that id exists.'});
       } else {
          cb(results);

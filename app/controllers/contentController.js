@@ -8,7 +8,7 @@ exports.createContent = function(req,res) {
     results = {};
     results.id = response._id;
     results.user_id = req.param('user_id');
-    results.name = req.param('name');
+    results.link = req.param('link');
     res.json(results);
     userModel.addContentToUser(req.param('user_id'), response._id, function(response){
       if(response.error) {

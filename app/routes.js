@@ -37,6 +37,13 @@ exports.addAPIRouter = function(app, mongoose) {
   router.get('/:user_id/cube', function(req,res) {
     userController.listCubes(req,res);
   });
+  router.post('/:parent_user_id/cube/:cube_id/share', function(req,res) {
+    userController.shareCube(req,res);
+  });
+  router.post('/:parent_user_id/content/:content_id/share', function(req,res) {
+    userController.shareContent(req,res);
+  });
+
   router.get('/:user_id/content', function(req,res) {
     userController.listContents(req,res);
   });
@@ -49,12 +56,5 @@ exports.addAPIRouter = function(app, mongoose) {
   router.delete('/:user_id/cube/:cube_id', function(req, res) {
    cubeController.deleteCube(req,res);
   });
-  router.post('/:parent_user_id/content/:cube_id/share', function(req,res) {
-    userController.shareCube(req,res);
-  });
-  router.post('/:parent_user_id/content/:content_id/share', function(req,res) {
-    userController.shareContent(req,res);
-  });
-
   app.use('/user', router);
 }

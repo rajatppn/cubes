@@ -80,7 +80,7 @@ exports.deleteContentFromCube = function(req, res) {
     }
     res.json('');
   }
-  cubeModel.deleteContentFromCube(req.params('content_id'), req.param('cube_id'),cb);
+  cubeModel.deleteContentFromCube(req.param('content_id'), req.param('cube_id'),cb);
 }
 
 exports.deleteCube = function(req,res) {
