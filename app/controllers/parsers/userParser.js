@@ -1,0 +1,3 @@
+exports.createUserParser = function(user) {
+  
+}
