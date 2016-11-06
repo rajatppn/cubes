@@ -1,9 +1,9 @@
 var mongoose = require('mongoose');
 var cubeSchema = new mongoose.Schema({
-         active: Boolean,
+         active: Boolean,\
+         id: { type: Number, trim: true },
          name: { type: String, trim: true },
-         contents: { type: [mongoose.Schema.Types.ObjectId], default: [] },
-         created: { type: Date, default: Date.now }
+         events: { }
      },
      { collection: 'cube' }
 );

@@ -10,6 +10,7 @@
     "method-override": "~2.3.0",
     "mongodb": "~1.4.26",
     "mongoose": "~3.8.0",
+    "mysql": "^2.12.0",
     "path": "~0.4.9",
     "pug": "^2.0.0-alpha3"
   },

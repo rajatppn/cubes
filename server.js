@@ -6,9 +6,7 @@ var db	 = require('./config/db');
 
 var app = express();
 var port = 8000;
-console.log('yoyo');
 mongoose.connect(db.url);
-console.log('Hello');
 app.use( bodyParser.json() );
 app.use(bodyParser.urlencoded({ extended: true }));
 
